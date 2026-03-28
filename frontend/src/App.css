@@ -178,6 +178,232 @@ tr.has-warning:hover {
   font-size: 0.85rem;
 }
 
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.tab {
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  color: #666;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: #333;
+  background: #f5f5f5;
+}
+
+.tab.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+  font-weight: 500;
+}
+
+/* LAS Section */
+.las-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.las-upload {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.las-upload h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+}
+
+.las-note {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.file-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.file-input-wrapper input[type="file"] {
+  padding: 8px;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+.file-name {
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.upload-button {
+  background: #28a745;
+}
+
+.upload-button:hover:not(:disabled) {
+  background: #1e7e34;
+}
+
+/* LAS Jobs */
+.las-jobs h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+}
+
+.no-jobs {
+  color: #666;
+  font-style: italic;
+}
+
+.jobs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.jobs-table th,
+.jobs-table td {
+  padding: 10px 8px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.jobs-table th {
+  background: #f5f5f5;
+  font-weight: 600;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-pending {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.status-processing {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.status-completed {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-failed {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.progress-bar {
+  position: relative;
+  height: 20px;
+  background: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 100px;
+}
+
+.progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #007bff;
+  transition: width 0.3s;
+}
+
+.progress-bar span {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.error-text {
+  color: #dc3545;
+  cursor: help;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.download-btn {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  background: #007bff;
+}
+
+.delete-btn {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  background: #dc3545;
+}
+
+.delete-btn:hover:not(:disabled) {
+  background: #c82333;
+}
+
+/* Job Stats */
+.job-stats {
+  margin-top: 20px;
+  padding: 16px;
+  background: #f0f9ff;
+  border-radius: 8px;
+  border: 1px solid #b3d9ff;
+}
+
+.job-stats h4 {
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+  color: #0066cc;
+}
+
+.stats-detail p {
+  margin: 0 0 8px 0;
+}
+
+.stats-detail ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.stats-detail li {
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 768px) {
   .settings {
     flex-direction: column;
@@ -193,5 +419,29 @@ tr.has-warning:hover {
 
   th, td {
     padding: 6px 8px;
+  }
+
+  .tabs {
+    flex-direction: column;
+  }
+
+  .tab {
+    border-bottom: none;
+    border-left: 2px solid transparent;
+    text-align: left;
+  }
+
+  .tab.active {
+    border-bottom: none;
+    border-left-color: #007bff;
+  }
+
+  .jobs-table {
+    font-size: 0.75rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 4px;
   }
 }
