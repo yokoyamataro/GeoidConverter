@@ -235,6 +235,13 @@ tr.has-warning:hover {
   line-height: 1.5;
 }
 
+.coming-soon-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  margin: 16px 0;
+}
+
 .file-input-wrapper {
   display: flex;
   align-items: center;

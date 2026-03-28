@@ -94,13 +94,17 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
-  // LAS state
+  // LAS state (currently disabled - 準備中)
   const [lasFile, setLasFile] = useState<File | null>(null)
   const [lasJobs, setLasJobs] = useState<LASJob[]>([])
   const [lasUploading, setLasUploading] = useState(false)
   const [lasError, setLasError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  // Suppress unused warnings while LAS feature is disabled
+  void lasFile; void setLasFile; void lasJobs; void setLasJobs;
+  void lasUploading; void setLasUploading; void lasError; void setLasError;
+  void fileInputRef; void pollingRef;
 
   // LASジョブ一覧を取得
   const fetchLasJobs = async () => {
@@ -298,6 +302,10 @@ function App() {
     }
   }
 
+  // Suppress unused warnings while LAS feature is disabled
+  void handleLasUpload; void handleDeleteJob; void formatDate;
+  void getStatusLabel; void getStatusClass;
+
   return (
     <div className="container">
       <h1>ジオイド変換ツール</h1>
@@ -442,122 +450,12 @@ function App() {
       {activeTab === 'las' && (
         <div className="las-section">
           <div className="las-upload">
-            <h3>LASファイルをアップロード</h3>
+            <h3>LASファイル変換機能</h3>
+            <p className="coming-soon-text">準備中</p>
             <p className="las-note">
-              LASファイル（.las, .laz）をアップロードして高さ変換を行います。<br />
-              処理完了後、このページからダウンロードできます。データは1週間で自動削除されます。
+              LASファイル（.las, .laz）の高さ変換機能は現在準備中です。<br />
+              今しばらくお待ちください。
             </p>
-
-            <div className="file-input-wrapper">
-              <input
-                type="file"
-                ref={fileInputRef}
-                accept=".las,.laz"
-                onChange={e => setLasFile(e.target.files?.[0] || null)}
-              />
-              {lasFile && (
-                <span className="file-name">{lasFile.name} ({(lasFile.size / 1024 / 1024).toFixed(2)} MB)</span>
-              )}
-            </div>
-
-            <button
-              onClick={handleLasUpload}
-              disabled={lasUploading || !lasFile}
-              className="upload-button"
-            >
-              {lasUploading ? 'アップロード中...' : 'アップロードして変換開始'}
-            </button>
-
-            {lasError && <div className="error">{lasError}</div>}
-          </div>
-
-          <div className="las-jobs">
-            <h3>変換ジョブ一覧</h3>
-
-            {lasJobs.length === 0 ? (
-              <p className="no-jobs">ジョブがありません</p>
-            ) : (
-              <table className="jobs-table">
-                <thead>
-                  <tr>
-                    <th>ファイル名</th>
-                    <th>点数</th>
-                    <th>状態</th>
-                    <th>進捗</th>
-                    <th>作成日時</th>
-                    <th>有効期限</th>
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {lasJobs.map(job => (
-                    <tr key={job.job_id}>
-                      <td>{job.filename}</td>
-                      <td>{job.point_count.toLocaleString()}</td>
-                      <td>
-                        <span className={`status ${getStatusClass(job.status)}`}>
-                          {getStatusLabel(job.status)}
-                        </span>
-                      </td>
-                      <td>
-                        {job.status === 'processing' && (
-                          <div className="progress-bar">
-                            <div
-                              className="progress-fill"
-                              style={{ width: `${job.progress}%` }}
-                            />
-                            <span>{job.progress.toFixed(1)}%</span>
-                          </div>
-                        )}
-                        {job.status === 'completed' && '100%'}
-                        {job.status === 'failed' && (
-                          <span className="error-text" title={job.error || ''}>
-                            エラー
-                          </span>
-                        )}
-                      </td>
-                      <td>{formatDate(job.created_at)}</td>
-                      <td>{formatDate(job.expires_at)}</td>
-                      <td className="actions">
-                        {job.status === 'completed' && (
-                          <a
-                            href={`${API_URL}/las/download/${job.job_id}`}
-                            className="download-btn"
-                            download
-                          >
-                            ダウンロード
-                          </a>
-                        )}
-                        <button
-                          className="delete-btn"
-                          onClick={() => handleDeleteJob(job.job_id)}
-                        >
-                          削除
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-
-            {lasJobs.some(j => j.status === 'completed' && j.stats) && (
-              <div className="job-stats">
-                <h4>最新の処理統計</h4>
-                {lasJobs.filter(j => j.status === 'completed' && j.stats).slice(0, 1).map(job => (
-                  <div key={job.job_id} className="stats-detail">
-                    <p><strong>{job.filename}</strong></p>
-                    <ul>
-                      <li>処理点数: {job.stats!.processed_points.toLocaleString()} / {job.stats!.total_points.toLocaleString()}</li>
-                      <li>失敗点数: {job.stats!.failed_points.toLocaleString()}</li>
-                      <li>補正量（最小）: {job.stats!.min_correction.toFixed(4)} m</li>
-                      <li>補正量（最大）: {job.stats!.max_correction.toFixed(4)} m</li>
-                      <li>補正量（平均）: {job.stats!.avg_correction.toFixed(4)} m</li>
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       )}
