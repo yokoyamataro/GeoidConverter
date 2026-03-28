@@ -141,6 +141,17 @@ button:disabled {
   background: #1e7e34;
 }
 
+.map-container {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+.map-container .leaflet-container {
+  border-radius: 8px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

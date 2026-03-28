@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
+import { ResultMap } from './ResultMap'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
@@ -415,6 +416,8 @@ function App() {
                   離島地域の点が含まれています。「離島補正を使用」オプションの使用を検討してください。
                 </div>
               )}
+
+              <ResultMap points={results.points} />
 
               <table>
                 <thead>
