@@ -100,7 +100,7 @@ function App() {
   const [lasUploading, setLasUploading] = useState(false)
   const [lasError, setLasError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const pollingRef = useRef<NodeJS.Timeout | null>(null)
+  const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   // LASジョブ一覧を取得
   const fetchLasJobs = async () => {
