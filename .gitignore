@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.env
+venv/
+
+# Node
+node_modules/
+dist/
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ジオイドデータ（サイズが大きいためGit管理しない場合）
+# gsigeoid2024/
+# gsigeo2011_ver2_2_asc/
