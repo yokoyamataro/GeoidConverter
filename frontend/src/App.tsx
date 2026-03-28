@@ -257,27 +257,6 @@ function App() {
     }
   }
 
-  // LASファイルダウンロード
-  const handleLasDownload = async (jobId: string, filename: string) => {
-    try {
-      const response = await fetch(`${API_URL}/las/download/${jobId}`)
-      if (!response.ok) {
-        const err = await response.json()
-        throw new Error(err.detail || 'ダウンロードに失敗しました')
-      }
-
-      const blob = await response.blob()
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      const originalName = filename.replace(/\.(las|laz)$/i, '')
-      a.download = `${originalName}_converted.las`
-      a.click()
-    } catch (e) {
-      alert(e instanceof Error ? e.message : 'ダウンロードに失敗しました')
-    }
-  }
-
   // ジョブ削除
   const handleDeleteJob = async (jobId: string) => {
     if (!confirm('このジョブを削除しますか？')) return
@@ -541,12 +520,13 @@ function App() {
                       <td>{formatDate(job.expires_at)}</td>
                       <td className="actions">
                         {job.status === 'completed' && (
-                          <button
+                          <a
+                            href={`${API_URL}/las/download/${job.job_id}`}
                             className="download-btn"
-                            onClick={() => handleLasDownload(job.job_id, job.filename)}
+                            download
                           >
                             ダウンロード
-                          </button>
+                          </a>
                         )}
                         <button
                           className="delete-btn"

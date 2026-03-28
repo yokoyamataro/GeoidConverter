@@ -363,6 +363,16 @@ tr.has-warning:hover {
   padding: 6px 12px;
   font-size: 0.8rem;
   background: #007bff;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.download-btn:hover {
+  background: #0056b3;
 }
 
 .delete-btn {
