@@ -4,7 +4,7 @@
 import os
 import uuid
 import json
-import shutil
+import aiofiles
 from datetime import datetime, timedelta
 from fastapi import FastAPI, HTTPException, UploadFile, File, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
@@ -436,8 +436,9 @@ async def upload_las(
     output_path = LAS_OUTPUT_DIR / f"{job_id}.las"
 
     try:
-        with open(input_path, "wb") as f:
-            shutil.copyfileobj(file.file, f)
+        async with aiofiles.open(input_path, "wb") as f:
+            while chunk := await file.read(1024 * 1024):  # 1MB chunks
+                await f.write(chunk)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"ファイル保存に失敗しました: {e}")
 

@@ -223,12 +223,15 @@ function App() {
     try {
       const formData = new FormData()
       formData.append('file', lasFile)
-      formData.append('zone', zone.toString())
-      formData.append('input_height_type', inputHeightType)
-      formData.append('output_height_type', outputHeightType)
-      formData.append('use_island_correction', useIslandCorrection.toString())
 
-      const response = await fetch(`${API_URL}/las/upload?zone=${zone}&input_height_type=${inputHeightType}&output_height_type=${outputHeightType}&use_island_correction=${useIslandCorrection}`, {
+      const params = new URLSearchParams({
+        zone: zone.toString(),
+        input_height_type: inputHeightType,
+        output_height_type: outputHeightType,
+        use_island_correction: useIslandCorrection.toString(),
+      })
+
+      const response = await fetch(`${API_URL}/las/upload?${params}`, {
         method: 'POST',
         body: formData,
       })
